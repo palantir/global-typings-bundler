@@ -1,7 +1,7 @@
 ## Global Typings Bundler
 
-Converts a collection of `.d.ts` files for external modules into a single `.d.ts` file for
-global distribution.
+Bundles TypeScript definition files from a set of external modules into a single `.d.ts` file
+for distribution alongside a global browser module.
 
 #### Caveats
 

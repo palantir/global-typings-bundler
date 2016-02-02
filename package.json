@@ -1,7 +1,7 @@
 {
-  "name": "global-typings-generator",
+  "name": "global-typings-bundler",
   "version": "0.0.3",
-  "description": "Combines .d.ts files from a set of external modules into one .d.ts file for distribution as a global browser module",
+  "description": "Bundles .d.ts files from a set of external modules into one .d.ts file for distribution alongside a global browser module",
   "main": "index.js",
   "scripts": {
     "all": "npm run test && npm run dist",
@@ -12,6 +12,10 @@
   },
   "author": "Palantir Technologies",
   "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/palantir/global-typings-bundler.git"
+  },
   "devDependencies": {
     "typescript": "next",
     "tslint": "next"
