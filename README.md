@@ -6,36 +6,65 @@ Bundles your TypeScript definition files, like a JS module bundler does for your
 
 **WARNING**: Very experimental/unstable, use at your own risk
 
-__Input__: granular external module definition files as generated with `tsc --module commonjs`.
+### Input
+
+Granular external module definition files as generated with `tsc --module commonjs`:
 
 ```
-build/
-├── exportParser.d.ts
-├── importParser.d.ts
+my-module/
+├── foo.d.ts
+├── bar.d.ts
 ├── index.d.ts
-├── tsUtils.d.ts
 └── someFolder/
     └── nestedModule.d.ts
 ```
 
 ```ts
-// exportParser.d.ts
+// index.d.ts
+export { IFoo, parseExport } from "./foo";
+export { IBar } from "./bar";
+```
+
+```ts
+// foo.d.ts
 import * as ts from "typescript";
-export interface ExportData {
+import { someGlobalVariable } from "./someFolder/nestedModule";
+export interface IFoo {
     ...
 }
-export declare function parseExport(exportDecl: ts.ExportDeclaration): ExportData[];
+export function parseExport(exportDecl: ts.ExportDeclaration): IFoo[] {
+    ...
+}
 ```
 
 ```ts
 // someFolder/nestedModule.d.ts
-import * as ts from "typescript";
-export var someGlobalVariable: string;
+export const someGlobalVariable: string;
 ```
 
-__Output__: a flattened `.d.ts` file that matches the shape of the namespaces created by a JS bundler like webpack or browserify.
+### Output
 
-TODO
+A flattened `.d.ts` file that matches the shape of the namespaces created by a JS bundler like webpack or browserify:
+
+```ts
+declare namespace __MyModule.__SomeFolder.__NestedModule {
+    export const someGlobalVariable: string;
+}
+declare namespace __MyModule.__Foo {
+    import someGlobalVariable = __MyModule.__SomeFolder.__NestedModule.someGlobalVariable;
+    export interface IFoo {
+        ...
+    }
+    export declare function parseExport(exportDecl: ts.ExportDeclaration): IFoo[];
+}
+declare namespace MyModule {
+    export import IFoo = __MyModule.__Foo.IFoo;
+    export import parseExport = __MyModule.__Foo.parseExport;
+    export import IBar = __MyModule.__Bar.IBar;
+}
+```
+
+The `__` namespaces are fake and do not correspond to real values at runtime in JS.
 
 #### Motivation
 
