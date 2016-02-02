@@ -1,3 +1,8 @@
+/**
+ * @license
+ * Copyright 2016 Palantir Technologies, Inc.
+ */
+
 var childProcess = require("child_process");
 var fs = require("fs");
 var glob = require("glob");
