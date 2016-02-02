@@ -1,3 +1,8 @@
+/**
+ * @license
+ * Copyright 2016 Palantir Technologies, Inc.
+ */
+
 import * as fs from "fs";
 import * as path from "path";
 import * as ts from "typescript";
