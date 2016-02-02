@@ -19,8 +19,8 @@ export function parseImport(node: ts.ImportDeclaration) {
     const importPath = node.moduleSpecifier.getText().replace(/"/g, "");
     const startPosition = node.pos;
 
-    // import is in "import * as Foo from..." form
     if (hasNode(node, ts.SyntaxKind.NamespaceImport)) {
+        // import * as Foo from...
         const namespaceImport = <ts.NamespaceImport>findNode(node, ts.SyntaxKind.NamespaceImport);
         importData.push({
             localName: namespaceImport.name.text,
@@ -28,7 +28,7 @@ export function parseImport(node: ts.ImportDeclaration) {
             startPosition,
         });
     } else if (hasNode(node, ts.SyntaxKind.NamedImports)) {
-        // import is in "import {foo, bar as car} from..." form
+        // import {foo, bar as car} from...
         const importSpecifiers = <ts.ImportSpecifier[]>findNodes(node, ts.SyntaxKind.ImportSpecifier);
         for (const importSpecifier of importSpecifiers) {
             const localName = importSpecifier.name.text;
@@ -41,7 +41,7 @@ export function parseImport(node: ts.ImportDeclaration) {
             });
         }
     } else if (node.importClause != null) {
-        // presumably in "impot something from..." form
+        // import aliasOfDefaultExport from ...
         importData.push({
             localName: node.importClause.name.text,
             propertyName: "default",

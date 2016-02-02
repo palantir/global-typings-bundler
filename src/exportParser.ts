@@ -21,10 +21,10 @@ export function parseExport(exportDecl: ts.ExportDeclaration) {
     const startPosition = exportDecl.pos;
 
     if (!hasNamedExports && moduleSpecifier != null) {
-        // "export * from ..." format
+        // export * from ...
         throw new Error("`export * from ...` exports are not supported.");
     } else if (hasNamedExports && moduleSpecifier == null) {
-        // "export {name, name2 as name2};" format
+        // export {name, name2 as name2};
         throw new Error("`export {name}` exports without a `from` clause are not supported.");
     } else if (hasNamedExports && moduleSpecifier != null) {
         const exportSpecifiers = <ts.ExportSpecifier[]>findNodes(exportDecl, ts.SyntaxKind.ExportSpecifier);
