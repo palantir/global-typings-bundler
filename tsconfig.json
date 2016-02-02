@@ -11,6 +11,7 @@
     "exclude": [
         "build",
         "dist",
+        "test",
         "node_modules",
         "typings/browser.d.ts",
         "typings/browser"

@@ -3,4 +3,4 @@ machine:
     version: 5.4
 test:
   override:
-    - npm run test
+    - npm run all

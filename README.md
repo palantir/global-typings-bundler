@@ -4,6 +4,8 @@
 
 Bundles your TypeScript definition files, like a JS module bundler does for your source files.
 
+**WARNING**: Very experimental/unstable, use at your own risk
+
 __Input__: granular external module definition files as generated with `tsc --module commonjs`.
 
 ```
@@ -47,7 +49,12 @@ distribute it as a strongly typed CommonJS module on NPM as well as a strongly t
 
 #### Caveats
 
-TODO
+The following structures are not currently supported and will cause the library to either throw an error or generate incorrect typings.
+
+* default exports: `export default ...`
+* default imports mixed with named imports: `import foo, { bar } from ...`
+* wildcard re-exports: `export * from ...`
+* named export statements without a from clause: `export { foo, bar as baz }`. (Note: `export { foo, bar as baz } from ...` _is_ supported.)
 
 #### Code Structure
 
@@ -59,6 +66,24 @@ TODO
 npm run lint
 npm run build
 ```
+
+##### Testing
+
+In order to test your changes:
+
+* Add/modify test cases as necessary in `test/cases`. Each test case is its own directory
+and has a file named `params.json` which supplies the parameters to pass when building the bundled typings file.
+If your code changes are supposed to affect the output of the library, ensure at least one test case is affected
+as well. If you're simply refactoring code, it's fine to leave the test cases as they are.
+* Run `npm run build` to build the latest version of your code.
+* Run `npm run test` to generate output for all test cases into the `test/output` directory.
+    * If the command succeeds, your code changes didn't affect the output from any test cases.
+    * If the command fails, your code changes have affected the output from at least one test case.
+      Use `npm run test-diff` to see the differences or view the differences between
+      `test/accepted-output` and `test/output` with your favorite editor/diff tool.
+* If the output in `test/output` is what is desired, run `npm run test-accept`.
+* When you commit your code changes, also commit the changes to `test/accepted-output`.
+
 
 #### Distribution
 
