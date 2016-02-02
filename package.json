@@ -6,7 +6,7 @@
   "scripts": {
     "all": "npm run lint && npm run build && npm run dist",
     "build": "rm -rf build/ && tsc",
-    "dist": "rm -rf dist/ && cp -r build/src/ dist/ && cp package.json dist/",
+    "dist": "rm -rf dist/ && cp -r build/src/ dist/ && cp package.json README.md dist/",
     "lint": "tslint ./*/**.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
