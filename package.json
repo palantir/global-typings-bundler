@@ -1,0 +1,22 @@
+{
+  "name": "global-typings-generator",
+  "version": "0.0.3",
+  "description": "Combines .d.ts files from a set of external modules into one .d.ts file for distribution as a global browser module",
+  "main": "index.js",
+  "scripts": {
+    "all": "npm run lint && npm run build && npm run dist",
+    "build": "rm -rf build/ && tsc",
+    "dist": "rm -rf dist/ && cp -r build/src/ dist/ && cp package.json dist/",
+    "lint": "tslint ./*/**.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Palantir Technologies",
+  "license": "Apache 2.0",
+  "devDependencies": {
+    "typescript": "next",
+    "tslint": "next"
+  },
+  "peerDependencies": {
+    "typescript": "*"
+  }
+}
