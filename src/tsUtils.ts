@@ -1,3 +1,8 @@
+/**
+ * @license
+ * Copyright 2016 Palantir Technologies, Inc.
+ */
+
 import * as ts from "typescript";
 
 export function findNodes(node: ts.Node, kind: ts.SyntaxKind, matches?: ts.Node[]) {

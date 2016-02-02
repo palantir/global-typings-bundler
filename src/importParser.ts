@@ -1,3 +1,8 @@
+/**
+ * @license
+ * Copyright 2016 Palantir Technologies, Inc.
+ */
+
 import * as ts from "typescript";
 
 import { hasNode, findNode, findNodes } from "./tsUtils";
