@@ -1,10 +1,14 @@
-## Global Typings Bundler
+## global-typings-bundler
 
 [![Circle CI](https://circleci.com/gh/palantir/global-typings-bundler.svg?style=svg&circle-token=7aa0422260d471482bcbc9719d609e530f32ccda)](https://circleci.com/gh/palantir/global-typings-bundler)
 
 Bundles your TypeScript definition files, like a JS module bundler does for your source files.
 
-**WARNING**: Very experimental/unstable, use at your own risk
+**WARNING**: experimental/unstable, use at your own risk
+
+### Usage
+
+TODO
 
 ### Input
 
@@ -66,7 +70,7 @@ declare namespace MyModule {
 
 The `__` namespaces are fake and do not correspond to real values at runtime in JS.
 
-#### Motivation
+### Motivation
 
 As we transitioned our TypeScript libraries to ES6 module syntax and our applications to use a JS module loader,
 we wanted to retain interoperability with older applications that did not use a module loader or bundler. This
@@ -76,7 +80,10 @@ in these legacy applications because of the lack of module loader (they can't ha
 So, we built this tool to bridge the gap. It allows you to author a TypeScript library in ES6 module syntax and
 distribute it as a strongly typed CommonJS module on NPM as well as a strongly typed global module on Bower.
 
-#### Caveats
+Note that this tool is distinct from [dts-bundle](https://github.com/TypeStrong/dts-bundle), which also bundles up
+external module definition files, but does not flatten the module structure into namespaces.
+
+### Caveats
 
 The following structures are not currently supported and will cause the library to either throw an error or generate incorrect typings.
 
@@ -85,25 +92,23 @@ The following structures are not currently supported and will cause the library 
 * wildcard re-exports: `export * from ...`
 * named export statements without a from clause: `export { foo, bar as baz }`. (Note: `export { foo, bar as baz } from ...` _is_ supported.)
 
-#### Code Structure
+### Development
 
-TODO
-
-#### Development
+Quick Start:
 
 ```
 npm run lint
 npm run build
 ```
 
-##### Testing
+#### Testing
 
 In order to test your changes:
 
 * Add/modify test cases as necessary in `test/cases`. Each test case is its own directory
-and has a file named `params.json` which supplies the parameters to pass when building the bundled typings file.
-If your code changes are supposed to affect the output of the library, ensure at least one test case is affected
-as well. If you're simply refactoring code, it's fine to leave the test cases as they are.
+  and has a file named `params.json` which supplies the parameters to pass when building the bundled typings file.
+  If your code changes are supposed to affect the output of the library, ensure at least one test case is affected
+  as well. If you're simply refactoring code, it's fine to leave the test cases as they are.
 * Run `npm run build` to build the latest version of your code.
 * Run `npm run test` to generate output for all test cases into the `test/output` directory.
     * If the command succeeds, your code changes didn't affect the output from any test cases.
@@ -114,7 +119,7 @@ as well. If you're simply refactoring code, it's fine to leave the test cases as
 * When you commit your code changes, also commit the changes to `test/accepted-output`.
 
 
-#### Distribution
+### Distribution
 
 Publishing to NPM:
 
