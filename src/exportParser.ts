@@ -7,7 +7,7 @@ import * as ts from "typescript";
 
 import { hasNode, findNodes } from "./tsUtils";
 
-export interface ExportData {
+export interface IExportData {
     fromPath?: string;
     exportName: string;
     propertyName?: string;
@@ -15,7 +15,7 @@ export interface ExportData {
 }
 
 export function parseExport(exportDecl: ts.ExportDeclaration) {
-    const exportData: ExportData[] = [];
+    const exportData: IExportData[] = [];
     const moduleSpecifier = exportDecl.moduleSpecifier;
     const hasNamedExports = hasNode(exportDecl, ts.SyntaxKind.NamedExports);
     const startPosition = exportDecl.pos;

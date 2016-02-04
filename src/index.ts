@@ -8,22 +8,22 @@ import * as path from "path";
 import * as ts from "typescript";
 
 import { findNodes } from "./tsUtils";
-import { ExportData, parseExport } from "./exportParser";
-import { ImportData, parseImport } from "./importParser";
+import { IExportData, parseExport } from "./exportParser";
+import { IImportData, parseImport } from "./importParser";
 
-interface FileData {
+interface IFileData {
     contents: string;
     namespaceName: string;
     dependencies: string[];
-    imports: ImportData[];
-    exports: ExportData[];
+    imports: IImportData[];
+    exports: IExportData[];
     textSpansToDelete: TextSpan[];
 }
 type TextSpan = [number, number];
-type FileDataMap = { [path: string]: FileData };
-export type Externals = { [moduleName: string]: string };
+type IFileDataMap = { [path: string]: IFileData };
+export type IExternals = { [moduleName: string]: string };
 
-export function buildDTS(globalName: string, pathToBaseDTS: string, externals?: Externals) {
+export function buildDTS(globalName: string, pathToBaseDTS: string, externals?: IExternals) {
     externals = externals || {};
     const rootModulePath = path.basename(pathToBaseDTS, ".d.ts");
     const cwd = path.dirname(pathToBaseDTS);
@@ -35,7 +35,7 @@ export function buildDTS(globalName: string, pathToBaseDTS: string, externals?: 
     process.chdir(oldCWD);
     return outputFileContents;
 
-    function parseFileAndDeps(modulePath: string, fileData?: FileDataMap) {
+    function parseFileAndDeps(modulePath: string, fileData?: IFileDataMap) {
         fileData = fileData || {};
 
         // already processed file
@@ -55,8 +55,8 @@ export function buildDTS(globalName: string, pathToBaseDTS: string, externals?: 
         const namespaceName = modulePath === rootModulePath ? globalName : pathToNamespace(modulePath);
 
         const source = ts.createSourceFile(path.basename(filePath), fileContents, ts.ScriptTarget.ES5, true);
-        let imports: ImportData[] = [];
-        let exports: ExportData[] = [];
+        let imports: IImportData[] = [];
+        let exports: IExportData[] = [];
         const textSpansToDelete: TextSpan[] = [];
 
         for (const importDecl of findNodes(source, ts.SyntaxKind.ImportDeclaration)) {
@@ -109,7 +109,10 @@ export function buildDTS(globalName: string, pathToBaseDTS: string, externals?: 
     }
 }
 
-function generateOutput(fileDataMap: FileDataMap, rootModulePath: string, rootNamespace: string, externals?: Externals) {
+function generateOutput(fileDataMap: IFileDataMap,
+                        rootModulePath: string,
+                        rootNamespace: string,
+                        externals?: IExternals) {
     let output = "";
     externals = externals || {};
     const processed: { [realPath: string]: boolean } = {};
