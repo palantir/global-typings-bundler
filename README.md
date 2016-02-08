@@ -8,7 +8,34 @@ Bundles your TypeScript definition files, like a JS module bundler does for your
 
 ### Usage
 
-TODO
+```sh
+npm install global-typings-bundler --save-dev
+```
+
+#### Example
+
+```ts
+import { writeFileSync } from "fs";
+import { bundleTypings } from "global-typings-bundler";
+
+const result = bundleTypings("MyReactComponent", "path/to/entry/index.d.ts", {
+    "react": "React",
+    "react-dom": "ReactDOM",
+    "react-addons-css-transition-group": "React.addons.CSSTransitionGroup",
+});
+
+writeFileSync("my-global-typings.d.ts", result, "utf8");
+```
+
+#### API
+
+##### `bundleTypings(globalName: string, typingsEntryPoint: string, externals?: { [moduleName: string]: string }): string`
+
+- `globalName`: The name of the desired global namespace.
+- `typingsEntryPoint`: Path to the typings file for the module's entry point.
+- `externals`: An optional object which maps external module names to their corresponding globals.
+  For example, "react" would map to "React", "react-addons-test-utils" -> "React.addons.TestUtils", etc.
+
 
 ### Input
 

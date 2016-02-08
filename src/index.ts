@@ -21,12 +21,25 @@ interface IFileData {
 }
 type TextSpan = [number, number];
 type IFileDataMap = { [path: string]: IFileData };
+
+/**
+ * A map from external module names to the corresponding global variable when the module is bundled for browser usage.
+ */
 export type IExternals = { [moduleName: string]: string };
 
-export function buildDTS(globalName: string, pathToBaseDTS: string, externals?: IExternals) {
+/**
+ * Bundles external module typings into a single .d.ts file that exposes a global namespace.
+ *
+ * @param globalName The name of the desired global namespace
+ * @param typingsEntryPoint Path to the typings file for the module's entry point
+ * @param externals An object which maps external module names to their corresponding globals.
+ *        For example, "react" would map to "React", "react-addons-test-utils" -> "React.addons.TestUtils", etc.
+ * @returns the contents of the bundled typings file as a string
+ */
+export function bundleTypings(globalName: string, typingsEntryPoint: string, externals?: IExternals): string {
     externals = externals || {};
-    const rootModulePath = path.basename(pathToBaseDTS, ".d.ts");
-    const cwd = path.dirname(pathToBaseDTS);
+    const rootModulePath = path.basename(typingsEntryPoint, ".d.ts");
+    const cwd = path.dirname(typingsEntryPoint);
     const oldCWD = process.cwd();
     process.chdir(cwd);
 
