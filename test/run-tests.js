@@ -9,7 +9,7 @@ var glob = require("glob");
 var path = require("path");
 var rimraf = require("rimraf");
 
-var buildDTS = require("../build/src").buildDTS;
+var bundleTypings = require("../build/src").bundleTypings;
 
 rimraf.sync("test/output/*");
 
@@ -33,7 +33,7 @@ testCaseDirs.forEach(function(testCaseDir) {
    var params = JSON.parse(fs.readFileSync("params.json"), "utf8");
    var output;
    try {
-      output = buildDTS.apply(null, params);
+      output = bundleTypings.apply(null, params);
    } catch (e) {
       console.warn("Library could not bundle typings:");
       throw e;
