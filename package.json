@@ -1,12 +1,12 @@
 {
   "name": "global-typings-bundler",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Converts a collection of external module definition files into a single .d.ts file for distribution alongside a browser-ready JS bundle.",
   "main": "index.js",
   "scripts": {
     "all": "npm run lint && npm run build && npm run test && npm run dist",
     "build": "rm -rf build/ && tsc",
-    "dist": "rm -rf dist/ && cp -r build/src/ dist/ && cp package.json dist/",
+    "dist": "rm -rf dist/ && cp -r build/src/ dist/ && cp package.json README.md dist/",
     "lint": "tslint src/*.ts",
     "test": "node test/run-tests.js && diff -r test/accepted-output test/output",
     "test-accept": "rm -f test/accepted-output/* && cp test/output/* test/accepted-output/",
