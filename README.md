@@ -1,4 +1,4 @@
-## global-typings-bundler
+## global-typings-bundler [![npm version](https://badge.fury.io/js/global-typings-bundler.svg)](https://badge.fury.io/js/global-typings-bundler)
 
 [![Circle CI](https://circleci.com/gh/palantir/global-typings-bundler.svg?style=svg&circle-token=7aa0422260d471482bcbc9719d609e530f32ccda)](https://circleci.com/gh/palantir/global-typings-bundler)
 
