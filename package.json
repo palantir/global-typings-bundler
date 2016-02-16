@@ -1,6 +1,6 @@
 {
   "name": "global-typings-bundler",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Converts a collection of external module definition files into a single .d.ts file for distribution alongside a browser-ready JS bundle.",
   "main": "index.js",
   "scripts": {
