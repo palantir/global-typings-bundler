@@ -17,7 +17,7 @@
 
 import * as ts from "typescript";
 
-import { hasNode, findNode, findNodes } from "./tsUtils";
+import { findNode, findNodes, getModulePath, hasNode } from "./tsUtils";
 
 export interface IImportData {
     localName: string;
@@ -28,7 +28,7 @@ export interface IImportData {
 
 export function parseImport(node: ts.ImportDeclaration) {
     const importData: IImportData[] = [];
-    const importPath = node.moduleSpecifier.getText().replace(/"/g, "");
+    const importPath = getModulePath(node.moduleSpecifier);
     const startPosition = node.pos;
 
     if (hasNode(node, ts.SyntaxKind.NamespaceImport)) {

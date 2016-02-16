@@ -38,6 +38,10 @@ export function findNode(node: ts.Node, kind: ts.SyntaxKind) {
     return nodes[0];
 }
 
+export function getModulePath(moduleSpecifier: ts.Expression) {
+    return moduleSpecifier.getText().replace(/["']/g, "");
+}
+
 export function hasNode(node: ts.Node, kind: ts.SyntaxKind) {
     return findNodes(node, kind).length > 0;
 }

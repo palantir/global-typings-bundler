@@ -17,7 +17,7 @@
 
 import * as ts from "typescript";
 
-import { hasNode, findNodes } from "./tsUtils";
+import { findNodes, getModulePath, hasNode } from "./tsUtils";
 
 export interface IExportData {
     fromPath?: string;
@@ -44,7 +44,7 @@ export function parseExport(exportDecl: ts.ExportDeclaration) {
             const exportName = exportSpecifier.name.text;
             const propertyName = exportSpecifier.propertyName ? exportSpecifier.propertyName.text : exportName;
             exportData.push({
-                fromPath: moduleSpecifier.getText().replace(/"/g, ""),
+                fromPath: getModulePath(moduleSpecifier),
                 exportName,
                 propertyName,
                 startPosition,
