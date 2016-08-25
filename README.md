@@ -5,6 +5,12 @@
 
 Bundles your TypeScript definition files, like a JS module bundler does for your source files.
 
+### Important: Deprecation Notice
+
+_8/25/16_: This project is now deprecated in favor of built-in support for UMD module definitions in TypeScript 2.0: https://github.com/Microsoft/TypeScript/wiki/What%27s-new-in-TypeScript#support-for-umd-module-definitions
+
+---
+
 **WARNING**: experimental/unstable, use at your own risk
 
 * [Usage](#usage)
